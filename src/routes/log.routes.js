@@ -2,10 +2,12 @@ const express = require("express");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-    res.json({
-        message: "Log Routes Working"
-    });
-});
+const controller = require("../controllers/log.controller");
+
+router.post("/", controller.createLog);
+
+router.get("/verify", controller.verifyLogs);
+
+router.get("/:id", controller.getLogById);
 
 module.exports = router;
