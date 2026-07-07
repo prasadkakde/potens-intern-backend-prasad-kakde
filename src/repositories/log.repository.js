@@ -22,9 +22,19 @@ const getAllLogs = async () => {
     });
 };
 
+const exportLogs = async (filters) => {
+    return prisma.log.findMany({
+        where: filters,
+        orderBy: {
+            createdAt: "asc"
+        }
+    });
+};
+
 module.exports = {
     createLog,
     getLastLog,
     getLogById,
-    getAllLogs
+    getAllLogs,
+    exportLogs
 };

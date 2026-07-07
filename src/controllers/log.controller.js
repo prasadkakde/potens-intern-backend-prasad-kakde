@@ -1,7 +1,7 @@
 const logService = require("../services/log.service");
 const verifyService = require("../services/verify.service");
 const logSchema = require("../validations/log.validation");
-
+const exportService = require("../services/export.service");
 // POST /api/log
 const createLog = async (req, res, next) => {
     try {
@@ -62,8 +62,29 @@ const verifyLogs = async (req, res, next) => {
     }
 };
 
+const exportLogs = async (req, res, next) => {
+
+    try {
+
+        const logs = await exportService.exportLogs(req.query);
+
+        return res.status(200).json({
+            success: true,
+            count: logs.length,
+            data: logs
+        });
+
+    } catch (error) {
+
+        next(error);
+
+    }
+
+};
+
 module.exports = {
     createLog,
     getLogById,
-    verifyLogs
+    verifyLogs,
+    exportLogs
 };
